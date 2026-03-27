@@ -1,0 +1,892 @@
+{
+  "figma_ai_prompt": {
+    "version": "2.0",
+    "project_name": "Ex Hotel Jogja - High Conversion Landing Page",
+    "design_system": {
+      "approach": "mobile_first",
+      "breakpoints": {
+        "mobile": "320px - 767px",
+        "tablet": "768px - 1023px",
+        "desktop": "1024px+"
+      },
+      "color_palette": {
+        "primary": {
+          "name": "Premium Gold",
+          "hex": "#D4AF37",
+          "usage": "CTA buttons, highlights, icons"
+        },
+        "secondary": {
+          "name": "Trust Green",
+          "hex": "#2D5016",
+          "usage": "Headers, trust badges, success states"
+        },
+        "accent": {
+          "name": "Urgency Red",
+          "hex": "#C41E3A",
+          "usage": "Discount badges, urgency elements"
+        },
+        "neutral": {
+          "dark": "#1A1A1A",
+          "medium": "#4A4A4A",
+          "light": "#F5F5F5",
+          "white": "#FFFFFF"
+        }
+      },
+      "typography": {
+        "headlines": {
+          "font_family": "Poppins",
+          "weight": "700",
+          "mobile_size": "28px",
+          "desktop_size": "48px",
+          "line_height": "1.2"
+        },
+        "body": {
+          "font_family": "Inter",
+          "weight": "400",
+          "mobile_size": "16px",
+          "desktop_size": "18px",
+          "line_height": "1.6"
+        },
+        "cta_button": {
+          "font_family": "Poppins",
+          "weight": "600",
+          "size": "18px",
+          "letter_spacing": "0.5px"
+        }
+      },
+      "spacing": {
+        "section_padding_mobile": "40px 20px",
+        "section_padding_desktop": "80px 60px",
+        "element_gap": "16px",
+        "form_field_gap": "20px"
+      },
+      "touch_targets": {
+        "minimum_size": "44px",
+        "recommended_size": "48px",
+        "button_height": "56px"
+      }
+    },
+
+    "pages": [
+      {
+        "page_name": "Landing Page - Mobile First",
+        "sections": [
+          {
+            "section_id": "hero",
+            "section_name": "Hero Section (Above The Fold)",
+            "layout": "full_viewport_height",
+            "background": {
+              "type": "image_overlay",
+              "image_url": "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/aBWlX_logewz.webp",
+              "overlay_color": "rgba(0, 0, 0, 0.65)",
+              "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%)"
+            },
+            "content": {
+              "alignment": "center",
+              "vertical_position": "middle",
+              "elements": [
+                {
+                  "type": "urgency_badge",
+                  "text": "🔥 HARGA TURUN 2.5 MILIAR!",
+                  "style": {
+                    "background": "#C41E3A",
+                    "text_color": "#FFFFFF",
+                    "padding": "8px 16px",
+                    "border_radius": "20px",
+                    "font_size": "14px",
+                    "font_weight": "600",
+                    "margin_bottom": "16px"
+                  }
+                },
+                {
+                  "type": "headline",
+                  "text": "DIJUAL: Tanah 747m² + Bangunan Ex Hotel 12 Kamar",
+                  "style": {
+                    "color": "#FFFFFF",
+                    "font_size": "32px",
+                    "font_weight": "700",
+                    "line_height": "1.2",
+                    "margin_bottom": "12px",
+                    "text_shadow": "0 2px 4px rgba(0,0,0,0.3)"
+                  }
+                },
+                {
+                  "type": "subheadline",
+                  "text": "📍 Dalam Ringroad • 3.7km dari Tugu Jogja • ROI 10-13%/Tahun",
+                  "style": {
+                    "color": "#E0E0E0",
+                    "font_size": "16px",
+                    "font_weight": "400",
+                    "margin_bottom": "24px"
+                  }
+                },
+                {
+                  "type": "price_display",
+                  "content": {
+                    "original_price": {
+                      "text": "Rp 13.000.000.000",
+                      "style": {
+                        "color": "#9E9E9E",
+                        "font_size": "16px",
+                        "text_decoration": "line-through"
+                      }
+                    },
+                    "current_price": {
+                      "text": "Rp 10.500.000.000",
+                      "style": {
+                        "color": "#D4AF37",
+                        "font_size": "36px",
+                        "font_weight": "700"
+                      }
+                    },
+                    "discount_badge": {
+                      "text": "HEMAT 19%",
+                      "style": {
+                        "background": "#D4AF37",
+                        "text_color": "#1A1A1A",
+                        "padding": "4px 12px",
+                        "border_radius": "4px",
+                        "font_size": "12px",
+                        "font_weight": "700"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "cta_buttons",
+                  "layout": "stack_vertical",
+                  "buttons": [
+                    {
+                      "text": "📞 JADWALKAN SURVEY SEKARANG",
+                      "action": "scroll_to_form",
+                      "style": {
+                        "background": "#D4AF37",
+                        "text_color": "#1A1A1A",
+                        "height": "56px",
+                        "border_radius": "8px",
+                        "font_weight": "600",
+                        "width": "100%",
+                        "box_shadow": "0 4px 12px rgba(212, 175, 55, 0.4)"
+                      }
+                    },
+                    {
+                      "text": "💬 Chat WhatsApp",
+                      "action": "whatsapp_direct",
+                      "whatsapp_number": "6281391278889",
+                      "style": {
+                        "background": "#25D366",
+                        "text_color": "#FFFFFF",
+                        "height": "56px",
+                        "border_radius": "8px",
+                        "font_weight": "600",
+                        "width": "100%"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "trust_badges": {
+              "position": "bottom",
+              "items": [
+                {"icon": "🔐", "text": "SHM Clear"},
+                {"icon": "📍", "text": "Lokasi Prime"},
+                {"icon": "💰", "text": "ROI Tinggi"}
+              ],
+              "style": {
+                "background": "rgba(255,255,255,0.1)",
+                "padding": "12px",
+                "border_radius": "8px",
+                "text_color": "#FFFFFF",
+                "font_size": "12px",
+                "display": "flex",
+                "justify_content": "space-around"
+              }
+            }
+          },
+
+          {
+            "section_id": "urgency_bar",
+            "section_name": "Urgency & Scarcity Bar",
+            "layout": "sticky_top",
+            "background": {
+              "color": "#C41E3A",
+              "animation": "pulse_subtle"
+            },
+            "content": {
+              "text": "⚠️ Property OFF Sejak 2021 - Owner SERIUS JUAL | 3 Buyer Sudah Survey Minggu Ini",
+              "style": {
+                "color": "#FFFFFF",
+                "font_size": "14px",
+                "font_weight": "500",
+                "text_align": "center",
+                "padding": "10px 20px"
+              }
+            }
+          },
+
+          {
+            "section_id": "quick_stats",
+            "section_name": "Quick Stats Grid",
+            "layout": "grid_2x2",
+            "background": {
+              "color": "#FFFFFF"
+            },
+            "content": {
+              "items": [
+                {
+                  "icon": "🏢",
+                  "value": "12",
+                  "label": "Kamar Tidur",
+                  "sublabel": "+ Kamar Mandi Dalam"
+                },
+                {
+                  "icon": "📐",
+                  "value": "747m²",
+                  "label": "Luas Tanah",
+                  "sublabel": "LB 950m²"
+                },
+                {
+                  "icon": "🏪",
+                  "value": "1",
+                  "label": "Ruang Usaha",
+                  "sublabel": "Depan (Cafe/Resto)"
+                },
+                {
+                  "icon": "🏠",
+                  "value": "4",
+                  "label": "Kamar Rumah Induk",
+                  "sublabel": "+ Dapur & Ruang Tengah"
+                }
+              ],
+              "style": {
+                "card_background": "#F5F5F5",
+                "card_padding": "20px",
+                "card_border_radius": "12px",
+                "icon_size": "32px",
+                "value_font_size": "28px",
+                "value_font_weight": "700",
+                "value_color": "#2D5016",
+                "label_font_size": "14px",
+                "label_color": "#4A4A4A",
+                "sublabel_font_size": "11px",
+                "sublabel_color": "#9E9E9E",
+                "gap": "12px"
+              }
+            }
+          },
+
+          {
+            "section_id": "gallery",
+            "section_name": "Property Gallery",
+            "layout": "carousel_swipe",
+            "background": {
+              "color": "#FAFAFA"
+            },
+            "content": {
+              "section_title": {
+                "text": "📸 Lihat Kondisi Properti",
+                "style": {
+                  "font_size": "24px",
+                  "font_weight": "700",
+                  "color": "#1A1A1A",
+                  "text_align": "center",
+                  "margin_bottom": "24px"
+                }
+              },
+              "gallery_tabs": [
+                {
+                  "tab_name": "Drone View",
+                  "images": [
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/aBWlX_logewz.webp",
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/2qST5_ows4yt.webp",
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622834/Qh1F2_quoesd.webp",
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622834/ZB9Ys_yixp9p.webp",
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/lgWqc_lbk6nr.webp"
+                  ]
+                },
+                {
+                  "tab_name": "Eksterior",
+                  "images": [
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/image_5_kcbcjw.webp",
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/image_1_geegor.webp",
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/image_6_ryzgb0.webp"
+                  ]
+                },
+                {
+                  "tab_name": "Kamar",
+                  "images": [
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/image_7_aldxs4.webp",
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/image_4_bosjfv.webp",
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/image_8_r0kchi.webp"
+                  ]
+                },
+                {
+                  "tab_name": "Ruang Santai",
+                  "images": [
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/image_2_xe3pge.webp",
+                    "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/image_3_jacrs0.webp"
+                  ]
+                }
+              ],
+              "carousel_style": {
+                "image_aspect_ratio": "16:9",
+                "border_radius": "12px",
+                "indicator_style": "dots",
+                "indicator_color_active": "#D4AF37",
+                "indicator_color_inactive": "#CCCCCC",
+                "swipe_enabled": true,
+                "lazy_load": true,
+                "image_optimization": "webp"
+              }
+            }
+          },
+
+          {
+            "section_id": "location",
+            "section_name": "Lokasi Strategis",
+            "layout": "list_with_icons",
+            "background": {
+              "color": "#FFFFFF"
+            },
+            "content": {
+              "section_title": {
+                "text": "🗺️ Lokasi Emas di Pusat Jogja",
+                "style": {
+                  "font_size": "24px",
+                  "font_weight": "700",
+                  "color": "#1A1A1A",
+                  "text_align": "center",
+                  "margin_bottom": "24px"
+                }
+              },
+              "location_items": [
+                {"icon": "🛍️", "name": "Mirota Godean", "distance": "1.3 km", "time": "5 menit"},
+                {"icon": "🏛️", "name": "Tugu Jogja", "distance": "3.4 km", "time": "10 menit"},
+                {"icon": "🚆", "name": "Stasiun Tugu", "distance": "3.7 km", "time": "12 menit"},
+                {"icon": "🚶", "name": "Malioboro", "distance": "3.7 km", "time": "12 menit"},
+                {"icon": "🏬", "name": "Jogja City Mall", "distance": "6.3 km", "time": "18 menit"},
+                {"icon": "🛣️", "name": "Akses Jalan Utama", "distance": "0 km", "time": "Dalam Ringroad"}
+              ],
+              "item_style": {
+                "display": "flex",
+                "align_items": "center",
+                "padding": "16px",
+                "border_bottom": "1px solid #E0E0E0",
+                "icon_size": "24px",
+                "name_font_size": "16px",
+                "name_font_weight": "500",
+                "distance_color": "#2D5016",
+                "distance_font_weight": "600",
+                "time_color": "#9E9E9E",
+                "time_font_size": "13px"
+              }
+            }
+          },
+
+          {
+            "section_id": "investment",
+            "section_name": "Investment Potential",
+            "layout": "card_with_calculator",
+            "background": {
+              "color": "#F5F5F5",
+              "accent_border": "#D4AF37"
+            },
+            "content": {
+              "section_title": {
+                "text": "💰 Potensi Investasi Menguntungkan",
+                "style": {
+                  "font_size": "24px",
+                  "font_weight": "700",
+                  "color": "#1A1A1A",
+                  "text_align": "center",
+                  "margin_bottom": "24px"
+                }
+              },
+              "roi_cards": [
+                {
+                  "title": "Income Eksisting",
+                  "value": "Rp 90-120 Juta",
+                  "period": "/bulan",
+                  "note": "Saat beroperasi dengan OYO",
+                  "highlight": true
+                },
+                {
+                  "title": "Estimasi ROI",
+                  "value": "10-13%",
+                  "period": "/tahun",
+                  "note": "Berdasarkan harga sekarang",
+                  "highlight": true
+                },
+                {
+                  "title": "Diskon Special",
+                  "value": "Rp 2.5 Miliar",
+                  "period": "HEMAT",
+                  "note": "Dari harga normal 13M",
+                  "highlight": false
+                },
+                {
+                  "title": "Potensi Pengembangan",
+                  "value": "+12 Kamar",
+                  "period": "LAGI",
+                  "note": "Bangunan belum jadi 60%",
+                  "highlight": false
+                }
+              ],
+              "card_style": {
+                "background": "#FFFFFF",
+                "padding": "20px",
+                "border_radius": "12px",
+                "box_shadow": "0 2px 8px rgba(0,0,0,0.08)",
+                "title_font_size": "14px",
+                "title_color": "#9E9E9E",
+                "value_font_size": "28px",
+                "value_font_weight": "700",
+                "value_color_highlight": "#D4AF37",
+                "value_color_normal": "#2D5016",
+                "period_font_size": "14px",
+                "note_font_size": "12px",
+                "note_color": "#9E9E9E"
+              },
+              "use_case_tags": [
+                "🏨 Hotel Budget",
+                "🏠 Kost Eksklusif",
+                "☕ Cafe/Resto",
+                "🏢 Co-Working Space",
+                "🏪 Minimarket"
+              ]
+            }
+          },
+
+          {
+            "section_id": "trust_proof",
+            "section_name": "Trust & Social Proof",
+            "layout": "icon_grid",
+            "background": {
+              "color": "#2D5016",
+              "text_color": "#FFFFFF"
+            },
+            "content": {
+              "section_title": {
+                "text": "✅ Kenapa Properti Ini Terpercaya?",
+                "style": {
+                  "font_size": "22px",
+                  "font_weight": "700",
+                  "text_align": "center",
+                  "margin_bottom": "24px"
+                }
+              },
+              "trust_items": [
+                {"icon": "🔐", "title": "SHM Clear", "desc": "Legalitas lengkap & siap AJB"},
+                {"icon": "📊", "title": "Track Record", "desc": "Pernah produktif dengan OYO"},
+                {"icon": "👤", "title": "Owner Langsung", "desc": "Tanpa calo, nego langsung"},
+                {"icon": "📍", "title": "Lokasi Terbukti", "desc": "Dalam ringroad, akses mudah"}
+              ],
+              "item_style": {
+                "icon_size": "40px",
+                "title_font_size": "16px",
+                "title_font_weight": "600",
+                "desc_font_size": "13px",
+                "desc_opacity": "0.8",
+                "text_align": "center"
+              }
+            }
+          },
+
+          {
+            "section_id": "lead_form",
+            "section_name": "Lead Capture Form",
+            "layout": "single_column",
+            "background": {
+              "color": "#FFFFFF",
+              "top_border": "4px solid #D4AF37"
+            },
+            "content": {
+              "section_title": {
+                "text": "📋 Dapatkan Info Lengkap & Jadwalkan Survey",
+                "style": {
+                  "font_size": "24px",
+                  "font_weight": "700",
+                  "color": "#1A1A1A",
+                  "text_align": "center",
+                  "margin_bottom": "8px"
+                }
+              },
+              "section_subtitle": {
+                "text": "Isi form di bawah, kami akan hubungi via WhatsApp dalam 15 menit",
+                "style": {
+                  "font_size": "14px",
+                  "color": "#9E9E9E",
+                  "text_align": "center",
+                  "margin_bottom": "24px"
+                }
+              },
+              "form_fields": [
+                {
+                  "field_id": "name",
+                  "field_type": "text",
+                  "label": "Nama Lengkap *",
+                  "placeholder": "Masukkan nama Anda",
+                  "required": true,
+                  "validation": "min_length_2"
+                },
+                {
+                  "field_id": "whatsapp",
+                  "field_type": "tel",
+                  "label": "Nomor WhatsApp *",
+                  "placeholder": "08xx-xxxx-xxxx",
+                  "required": true,
+                  "validation": "indonesian_phone",
+                  "prefix": "+62"
+                },
+                {
+                  "field_id": "email",
+                  "field_type": "email",
+                  "label": "Email (Opsional)",
+                  "placeholder": "email@anda.com",
+                  "required": false,
+                  "validation": "email_format"
+                },
+                {
+                  "field_id": "survey_readiness",
+                  "field_type": "dropdown",
+                  "label": "Kapan Anda Berencana Survey Lokasi? *",
+                  "required": true,
+                  "options": [
+                    {"value": "this_week", "label": "🔥 Minggu Ini (Saya Serius!)", "icon": "⭐"},
+                    {"value": "two_weeks", "label": "2 Minggu Ke Depan", "icon": "📅"},
+                    {"value": "next_month", "label": "Bulan Depan", "icon": "🗓️"},
+                    {"value": "considering", "label": "Masih Pertimbangan Awal", "icon": "🤔"}
+                  ],
+                  "conditional": {
+                    "trigger_values": ["this_week", "two_weeks"],
+                    "show_field": {
+                      "field_id": "survey_date",
+                      "field_type": "date",
+                      "label": "Pilih Tanggal Survey:",
+                      "min_date": "today",
+                      "max_date": "+30_days"
+                    }
+                  }
+                },
+                {
+                  "field_id": "payment_plan",
+                  "field_type": "radio_group",
+                  "label": "Rencana Pembiayaan *",
+                  "required": true,
+                  "layout": "vertical",
+                  "options": [
+                    {"value": "hard_cash", "label": "💵 Hard Cash (Tunai Langsung)", "icon": "💵"},
+                    {"value": "soft_cash", "label": "📋 Soft Cash (Cicilan Developer)", "icon": "📋"},
+                    {"value": "kpr_bank", "label": "🏦 KPR / Bank", "icon": "🏦"},
+                    {"value": "consult", "label": "🤔 Masih Konsultasi", "icon": "🤔"}
+                  ]
+                },
+                {
+                  "field_id": "budget_range",
+                  "field_type": "dropdown",
+                  "label": "Range Budget *",
+                  "required": true,
+                  "options": [
+                    {"value": "8_10b", "label": "Rp 8 - 10 Miliar"},
+                    {"value": "10_12b", "label": "Rp 10 - 12 Miliar"},
+                    {"value": "12b_plus", "label": "Rp 12 Miliar+"},
+                    {"value": "flexible", "label": "Fleksibel (Nego)"}
+                  ]
+                },
+                {
+                  "field_id": "purpose",
+                  "field_type": "dropdown",
+                  "label": "Tujuan Pembelian *",
+                  "required": true,
+                  "options": [
+                    {"value": "investment", "label": "📈 Investasi (Sewa/Kost)"},
+                    {"value": "business", "label": "🏪 Usaha (Hotel/Cafe)"},
+                    {"value": "personal", "label": "🏠 Hunian Pribadi"},
+                    {"value": "mixed", "label": "🔄 Kombinasi"}
+                  ]
+                }
+              ],
+              "form_style": {
+                "field_height": "52px",
+                "field_border_radius": "8px",
+                "field_border_color": "#E0E0E0",
+                "field_focus_border_color": "#D4AF37",
+                "label_font_size": "14px",
+                "label_font_weight": "500",
+                "label_color": "#4A4A4A",
+                "placeholder_color": "#BDBDBD",
+                "error_color": "#C41E3A",
+                "required_indicator": "*",
+                "required_indicator_color": "#C41E3A"
+              },
+              "submit_button": {
+                "text": "📲 KIRIM KE WHATSAPP",
+                "subtext": "Data akan langsung terkirim ke Owner",
+                "action": "whatsapp_redirect",
+                "whatsapp_config": {
+                  "phone_number": "6281391278889",
+                  "country_code": "62",
+                  "message_template": "Halo, saya tertarik dengan Properti Ex Hotel Jogja.%0A%0A📋 DATA SAYA:%0A• Nama: {name}%0A• WhatsApp: {whatsapp}%0A• Email: {email}%0A• Rencana Survey: {survey_readiness}%0A• Tanggal Survey: {survey_date}%0A• Pembiayaan: {payment_plan}%0A• Budget: {budget_range}%0A• Tujuan: {purpose}%0A%0AMohon info lebih lanjut. Terima kasih!",
+                  "url_format": "https://wa.me/6281391278889?text={encoded_message}",
+                  "open_in_new_tab": true
+                },
+                "style": {
+                  "background": "#25D366",
+                  "text_color": "#FFFFFF",
+                  "height": "60px",
+                  "border_radius": "8px",
+                  "font_size": "18px",
+                  "font_weight": "700",
+                  "width": "100%",
+                  "box_shadow": "0 4px 12px rgba(37, 211, 102, 0.4)",
+                  "icon": "📲",
+                  "icon_position": "left"
+                }
+              },
+              "privacy_note": {
+                "text": "🔒 Data Anda aman & tidak akan disalahgunakan",
+                "style": {
+                  "font_size": "12px",
+                  "color": "#9E9E9E",
+                  "text_align": "center",
+                  "margin_top": "12px"
+                }
+              }
+            }
+          },
+
+          {
+            "section_id": "faq",
+            "section_name": "FAQ",
+            "layout": "accordion",
+            "background": {
+              "color": "#FAFAFA"
+            },
+            "content": {
+              "section_title": {
+                "text": "❓ Pertanyaan Yang Sering Diajukan",
+                "style": {
+                  "font_size": "22px",
+                  "font_weight": "700",
+                  "color": "#1A1A1A",
+                  "text_align": "center",
+                  "margin_bottom": "24px"
+                }
+              },
+              "faq_items": [
+                {
+                  "question": "Apakah harga masih bisa nego?",
+                  "answer": "Harga sudah diskon 2.5M dari 13M jadi 10.5M. Untuk pembeli serius yang siap transaksi cepat, masih ada ruang diskusi dengan owner."
+                },
+                {
+                  "question": "Bagaimana status legalitas?",
+                  "answer": "SHM (Sertifikat Hak Milik) clear & lengkap. Siap proses AJB segera setelah deal."
+                },
+                {
+                  "question": "Apakah bisa KPR?",
+                  "answer": "Bisa KPR Bank. Kami bisa rekomendasikan bank partner untuk proses lebih cepat."
+                },
+                {
+                  "question": "Berapa lama proses AJB?",
+                  "answer": "Normal 14-21 hari kerja. Bisa lebih cepat jika dokumen lengkap & pembayaran clear."
+                },
+                {
+                  "question": "Apakah ada biaya tambahan?",
+                  "answer": "Biaya AJB, BPHTB, dan notaris sesuai ketentuan pemerintah. Tidak ada biaya tersembunyi."
+                }
+              ],
+              "accordion_style": {
+                "item_background": "#FFFFFF",
+                "item_padding": "16px",
+                "item_border_radius": "8px",
+                "item_margin_bottom": "8px",
+                "question_font_size": "16px",
+                "question_font_weight": "600",
+                "answer_font_size": "14px",
+                "answer_color": "#4A4A4A",
+                "icon_color": "#D4AF37",
+                "animation": "slide_down"
+              }
+            }
+          },
+
+          {
+            "section_id": "footer",
+            "section_name": "Footer",
+            "layout": "centered",
+            "background": {
+              "color": "#1A1A1A"
+            },
+            "content": {
+              "elements": [
+                {
+                  "type": "cta_reminder",
+                  "text": "📞 Jangan Lewatkan Kesempatan Ini!",
+                  "style": {
+                    "color": "#D4AF37",
+                    "font_size": "18px",
+                    "font_weight": "600",
+                    "margin_bottom": "16px"
+                  }
+                },
+                {
+                  "type": "contact_info",
+                  "phone": "0813-9127-8889",
+                  "whatsapp_link": "https://wa.me/6281391278889",
+                  "style": {
+                    "color": "#FFFFFF",
+                    "font_size": "16px"
+                  }
+                },
+                {
+                  "type": "copyright",
+                  "text": "© 2026 Ex Hotel Jogja Property. All Rights Reserved.",
+                  "style": {
+                    "color": "#9E9E9E",
+                    "font_size": "12px",
+                    "margin_top": "24px"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+
+    "floating_elements": {
+      "whatsapp_button": {
+        "enabled": true,
+        "position": "bottom_right",
+        "offset_bottom": "20px",
+        "offset_right": "20px",
+        "size": "60px",
+        "background": "#25D366",
+        "icon": "whatsapp",
+        "icon_color": "#FFFFFF",
+        "icon_size": "32px",
+        "pulse_animation": true,
+        "tooltip": "Chat via WhatsApp",
+        "link": "https://wa.me/6281391278889",
+        "z_index": "9999"
+      },
+      "scroll_to_top": {
+        "enabled": true,
+        "position": "bottom_right",
+        "offset_bottom": "90px",
+        "offset_right": "20px",
+        "size": "48px",
+        "background": "#D4AF37",
+        "icon": "arrow_up",
+        "icon_color": "#1A1A1A",
+        "show_after_scroll": "500px",
+        "z_index": "9998"
+      },
+      "sticky_cta": {
+        "enabled": true,
+        "position": "bottom",
+        "height": "64px",
+        "background": "#FFFFFF",
+        "box_shadow": "0 -2px 10px rgba(0,0,0,0.1)",
+        "button": {
+           "text": "📞 Hubungi Kami Sekarang",
+          "action": "whatsapp_direct",
+          "whatsapp_number": "6281391278889",
+          "background": "#D4AF37",
+          "text_color": "#1A1A1A",
+          "font_weight": "600"
+        },
+        "show_after_scroll": "300px",
+        "z_index": "9997"
+      }
+    },
+
+    "animations": {
+      "fade_in": {
+        "trigger": "on_scroll",
+        "duration": "0.6s",
+        "easing": "ease_out"
+      },
+      "slide_up": {
+        "trigger": "on_scroll",
+        "duration": "0.5s",
+        "easing": "ease_out"
+      },
+      "pulse": {
+        "trigger": "continuous",
+        "duration": "2s",
+        "elements": ["urgency_bar", "whatsapp_button"]
+      },
+      "countdown": {
+        "trigger": "on_load",
+        "duration": "1s",
+        "elements": ["price_display"]
+      }
+    },
+
+    "conversion_optimization": {
+      "exit_intent_popup": {
+        "enabled": true,
+        "trigger": "mouse_leave_top",
+        "delay": "500ms",
+        "content": {
+          "title": "⏳ Tunggu! Download Info Lengkap Dulu",
+          "subtitle": "Dapatkan brochure lengkap dengan detail properti sebelum Anda pergi",
+          "cta_text": "📲 Kirim ke WhatsApp Saya",
+          "cta_action": "whatsapp_redirect",
+          "whatsapp_number": "6281391278889",
+          "close_text": "Tidak, Saya Tidak Tertarik"
+        }
+      },
+      "form_validation": {
+        "real_time": true,
+        "error_display": "inline",
+        "success_message": "✅ Data terkirim! Anda akan diarahkan ke WhatsApp...",
+        "redirect_delay": "1500ms"
+      },
+      "analytics_tracking": {
+        "events": [
+          "form_submit",
+          "whatsapp_click",
+          "gallery_view",
+          "scroll_50_percent",
+          "scroll_100_percent",
+          "exit_intent_triggered"
+        ]
+      }
+    },
+
+    "performance_requirements": {
+      "load_time_target": "3_seconds",
+      "image_optimization": {
+        "format": "webp",
+        "lazy_load": true,
+        "responsive_sizes": ["320px", "768px", "1024px", "1920px"]
+      },
+      "code_optimization": {
+        "minify_css": true,
+        "minify_js": true,
+        "defer_non_critical": true
+      },
+      "mobile_score_target": "90+",
+      "core_web_vitals": {
+        "LCP": "2.5s",
+        "FID": "100ms",
+        "CLS": "0.1"
+      }
+    },
+
+    "accessibility": {
+      "wcag_level": "AA",
+      "requirements": [
+        "color_contrast_minimum_4.5:1",
+        "keyboard_navigation",
+        "screen_reader_compatible",
+        "focus_indicators",
+        "alt_text_all_images",
+        "aria_labels_forms"
+      ]
+    }
+  }
+}
