@@ -1,7 +1,7 @@
 
-  # Implement Hotel Jogja Design
+  # Army Look Hotel
 
-  This is a code bundle for Implement Hotel Jogja Design. The original project is available at https://www.figma.com/design/Y4yd21jwsSXt2QnA1BfcAs/Implement-Hotel-Jogja-Design.
+  This is a code bundle for Army Look Hotel. The original project is available at https://www.figma.com/design/Y4yd21jwsSXt2QnA1BfcAs/Implement-Hotel-Jogja-Design.
 
   ## Running the code
 

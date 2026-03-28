@@ -33,18 +33,18 @@ export function HeroSection({ onScrollToForm }: HeroSectionProps) {
           🔥 HARGA TURUN 2.5 MILIAR!
         </span>
 
-        {/* Headline */}
-        <h1
-          className="text-white font-bold leading-tight"
-          style={{
-            fontFamily: "Poppins, sans-serif",
-            fontSize: "clamp(26px, 5vw, 46px)",
-            lineHeight: 1.2,
-            textShadow: "0 2px 8px rgba(0,0,0,0.4)",
-          }}
-        >
-          DIJUAL: Tanah 747m² + Bangunan<br className="hidden sm:block" /> Ex Hotel 12 Kamar
-        </h1>
+         {/* Headline */}
+         <h1
+           className="text-white font-bold leading-tight"
+           style={{
+             fontFamily: "Poppins, sans-serif",
+             fontSize: "clamp(26px, 5vw, 46px)",
+             lineHeight: 1.2,
+             textShadow: "0 2px 8px rgba(0,0,0,0.4)",
+           }}
+         >
+           DIJUAL: Tanah 747m² + Bangunan<br className="hidden sm:block" /> Bekas Hotel 12 Kamar
+         </h1>
 
         {/* Subheadline */}
         <p className="text-gray-200 text-base" style={{ fontFamily: "Inter, sans-serif" }}>
