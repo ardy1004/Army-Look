@@ -1,18 +1,11 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+/* ────────────────────────────────────────
+   Konfigurasi tab (urutan baru)
+   ──────────────────────────────────────── */
 const tabs = [
-  {
-    name: "Drone View",
-    images: [
-      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/aBWlX_logewz.webp",
-      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/2qST5_ows4yt.webp",
-      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622834/Qh1F2_quoesd.webp",
-      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622834/ZB9Ys_yixp9p.webp",
-      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/lgWqc_lbk6nr.webp",
-    ],
-  },
   {
     name: "Eksterior",
     images: [
@@ -36,46 +29,77 @@ const tabs = [
       "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/image_3_jacrs0.webp",
     ],
   },
+  {
+    name: "Drone View",
+    images: [
+      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/aBWlX_logewz.webp",
+      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/2qST5_ows4yt.webp",
+      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622834/Qh1F2_quoesd.webp",
+      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622834/ZB9Ys_yixp9p.webp",
+      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/lgWqc_lbk6nr.webp",
+    ],
+  },
 ];
 
-function Carousel({ images }: { images: string[] }) {
+/* ────────────────────────────────────────
+   Komponen Carousel yang dimodifikasi
+   - Menerima callback onScrollNext/onScrollPrev untuk menangani logika antar-tab
+   - Menerima callback onEmblaInit untuk mendapatkan emblaApi
+   ──────────────────────────────────────── */
+function Carousel({
+  images,
+  onScrollNext,
+  onScrollPrev,
+  onEmblaInit,
+}: {
+  images: string[];
+  onScrollNext?: () => void;
+  onScrollPrev?: () => void;
+  onEmblaInit?: (emblaApi: any) => void;
+}) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [current, setCurrent] = useState(0);
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) {
+    if (onScrollPrev) {
+      onScrollPrev();
+    } else if (emblaApi) {
       emblaApi.scrollPrev();
-      setCurrent(emblaApi.selectedScrollSnap() - 1 < 0 ? images.length - 1 : emblaApi.selectedScrollSnap() - 1);
     }
-  }, [emblaApi, images.length]);
+  }, [onScrollPrev, emblaApi]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) {
+    if (onScrollNext) {
+      onScrollNext();
+    } else if (emblaApi) {
       emblaApi.scrollNext();
-      setCurrent((emblaApi.selectedScrollSnap() + 1) % images.length);
     }
-  }, [emblaApi, images.length]);
+  }, [onScrollNext, emblaApi]);
 
-  const handleSelect = useCallback(() => {
-    if (emblaApi) setCurrent(emblaApi.selectedScrollSnap());
+  useEffect(() => {
+    if (emblaApi) {
+      const update = () => setCurrent(emblaApi.selectedScrollSnap());
+      emblaApi.on("select", update);
+      return () => emblaApi.off("select", update);
+    }
   }, [emblaApi]);
 
-  if (emblaApi) {
-    emblaApi.on("select", handleSelect);
+  if (onEmblaInit) {
+    onEmblaInit(emblaApi);
   }
 
   return (
     <div className="relative">
+      {/* Kontainer gambar */}
       <div className="overflow-hidden rounded-xl" ref={emblaRef}>
         <div className="flex">
           {images.map((img, i) => (
             <div className="flex-[0_0_100%] min-w-0" key={i}>
-              <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+                <div className="relative w-full" style={{ paddingBottom: "100%" }}>
                 <img
                   src={img}
                   alt={`Property photo ${i + 1}`}
                   className="absolute inset-0 w-full h-full object-cover rounded-xl"
-                  loading="lazy"
                 />
               </div>
             </div>
@@ -83,7 +107,7 @@ function Carousel({ images }: { images: string[] }) {
         </div>
       </div>
 
-      {/* Navigation Arrows */}
+      {/* Navigasi panah */}
       <button
         onClick={scrollPrev}
         className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center transition-opacity"
@@ -101,13 +125,13 @@ function Carousel({ images }: { images: string[] }) {
         <ChevronRight className="text-white" size={20} />
       </button>
 
-      {/* Dots */}
+      {/* Titik navigasi */}
       <div className="flex justify-center gap-1.5 mt-3">
         {images.map((_, i) => (
           <button
             key={i}
             onClick={() => {
-              emblaApi?.scrollTo(i);
+              emblaApi.scrollTo(i);
               setCurrent(i);
             }}
             className="w-2 h-2 rounded-full transition-all"
@@ -120,8 +144,51 @@ function Carousel({ images }: { images: string[] }) {
   );
 }
 
+/* ────────────────────────────────────────
+   Halaman GallerySection
+   ──────────────────────────────────────── */
 export function GallerySection() {
   const [activeTab, setActiveTab] = useState(0);
+  const emblaApiRef = useRef<any>(null);
+
+  // Reset ke slide pertama saat beralih tab
+  useEffect(() => {
+    if (emblaApiRef.current) {
+      emblaApiRef.current.scrollTo(0);
+    }
+  }, [activeTab]);
+
+  // Handler untuk geser berikutnya
+  const handleScrollNext = useCallback(() => {
+    const api = emblaApiRef.current;
+    if (!api) return;
+
+    const currentIndex = api.selectedScrollSnap();
+    const currentImages = tabs[activeTab].images.length;
+
+    // Jika ada gambar berikutnya di tab yang sama, geser biasa
+    if (currentIndex < currentImages - 1) {
+      api.scrollNext();
+    } else {
+      // Ada di gambar terakhir → pindah ke tab berikutnya
+      setActiveTab((prev) => (prev + 1) % tabs.length);
+    }
+  }, [activeTab, tabs]);
+
+  // Handler untuk geser sebelumnya
+  const handleScrollPrev = useCallback(() => {
+    const api = emblaApiRef.current;
+    if (!api) return;
+
+    const currentIndex = api.selectedScrollSnap();
+    // Jika ada gambar sebelumnya di tab yang sama, geser biasa
+    if (currentIndex > 0) {
+      api.scrollPrev();
+    } else {
+      // Ada di gambar pertama → pindah ke tab sebelumnya
+      setActiveTab((prev) => (prev + tabs.length - 1) % tabs.length);
+    }
+  }, [tabs]);
 
   return (
     <section className="py-10 px-5" style={{ background: "#FAFAFA" }}>
@@ -137,7 +204,7 @@ export function GallerySection() {
           📸 Lihat Kondisi Properti
         </h2>
 
-        {/* Tabs */}
+        {/* Tab pilihan */}
         <div className="flex gap-2 mb-4 overflow-x-auto pb-1">
           {tabs.map((tab, i) => (
             <button
@@ -155,7 +222,15 @@ export function GallerySection() {
           ))}
         </div>
 
-        <Carousel key={activeTab} images={tabs[activeTab].images} />
+        {/* Carousel dengan logika antar-tab */}
+        <Carousel
+          images={tabs[activeTab].images}
+          onScrollNext={handleScrollNext}
+          onScrollPrev={handleScrollPrev}
+          onEmblaInit={(api) => {
+            emblaApiRef.current = api;
+          }}
+        />
       </div>
     </section>
   );
