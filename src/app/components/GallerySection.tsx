@@ -7,6 +7,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
    ──────────────────────────────────────── */
 const tabs = [
   {
+    name: "Drone View",
+    images: [
+      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/aBWlX_logewz.webp",
+      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/2qST5_ows4yt.webp",
+      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622834/Qh1F2_quoesd.webp",
+      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622834/ZB9Ys_yixp9p.webp",
+      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/lgWqc_lbk6nr.webp",
+    ],
+  },
+  {
     name: "Eksterior",
     images: [
       "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/image_5_kcbcjw.webp",
@@ -27,16 +37,6 @@ const tabs = [
     images: [
       "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/image_2_xe3pge.webp",
       "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/image_3_jacrs0.webp",
-    ],
-  },
-  {
-    name: "Drone View",
-    images: [
-      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/aBWlX_logewz.webp",
-      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622832/2qST5_ows4yt.webp",
-      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622834/Qh1F2_quoesd.webp",
-      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622834/ZB9Ys_yixp9p.webp",
-      "https://res.cloudinary.com/dhjhgedd9/image/upload/v1774622833/lgWqc_lbk6nr.webp",
     ],
   },
 ];

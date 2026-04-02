@@ -4,9 +4,13 @@ import { UrgencyBar } from "./components/UrgencyBar";
 import { QuickStats } from "./components/QuickStats";
 import { GallerySection } from "./components/GallerySection";
 import { LocationSection } from "./components/LocationSection";
+import { FilterNotice } from "./components/FilterNotice";
+import { PotensiSection } from "./components/PotensiSection";
 import { InvestmentSection } from "./components/InvestmentSection";
+import { ScarcitySection } from "./components/ScarcitySection";
 import { TrustSection } from "./components/TrustSection";
 import { LeadForm } from "./components/LeadForm";
+import { FinalFilter } from "./components/FinalFilter";
 import { FAQSection } from "./components/FAQSection";
 import { FooterSection } from "./components/FooterSection";
 import { FloatingElements } from "./components/FloatingElements";
@@ -27,39 +31,51 @@ export default function App() {
       {/* Exit Intent Popup */}
       <ExitIntentPopup />
 
-      {/* Urgency Bar */}
+      {/* 1. Urgency Bar */}
       <UrgencyBar />
 
-      {/* Hero */}
+      {/* 2. Hero — Headline + Subheadline + CTA */}
       <HeroSection onScrollToForm={scrollToForm} />
 
-      {/* Quick Stats */}
+      {/* 3. Key Highlights */}
       <QuickStats />
 
-      {/* Gallery */}
+      {/* 4. Gallery */}
       <GallerySection />
 
-      {/* Location */}
+      {/* 5. Location */}
       <LocationSection />
 
-      {/* Investment */}
+      {/* 6. Important Notice (Lead Filter) */}
+      <FilterNotice />
+
+      {/* 7. Potensi Pengembangan */}
+      <PotensiSection />
+
+      {/* 8. Investment ROI */}
       <InvestmentSection />
 
-      {/* Trust */}
+      {/* 9. Trust */}
       <TrustSection />
 
-      {/* Lead Form */}
+      {/* 10. Scarcity */}
+      <ScarcitySection />
+
+      {/* 11. Qualification Form */}
       <div ref={formRef}>
         <LeadForm />
       </div>
 
-      {/* FAQ */}
+      {/* 12. Final Filter */}
+      <FinalFilter />
+
+      {/* 13. FAQ */}
       <FAQSection />
 
-      {/* Footer */}
+      {/* 14. Footer */}
       <FooterSection />
 
-      {/* Floating Elements (WA button, scroll-to-top, sticky CTA) */}
+      {/* Floating Elements */}
       <FloatingElements onScrollToForm={scrollToForm} />
     </div>
   );

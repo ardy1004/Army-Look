@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 interface HeroSectionProps {
   onScrollToForm: () => void;
 }
@@ -30,29 +28,30 @@ export function HeroSection({ onScrollToForm }: HeroSectionProps) {
           className="inline-block text-white text-sm font-semibold px-4 py-2 rounded-full animate-pulse"
           style={{ background: "#C41E3A", letterSpacing: "0.3px" }}
         >
-          🔥 HARGA TURUN 2.5 MILIAR!
+          DIJUAL — TANAH KOMERSIAL 747m²
         </span>
 
-         {/* Headline */}
-         <h1
-           className="text-white font-bold leading-tight"
-           style={{
-             fontFamily: "Poppins, sans-serif",
-             fontSize: "clamp(26px, 5vw, 46px)",
-             lineHeight: 1.2,
-             textShadow: "0 2px 8px rgba(0,0,0,0.4)",
-           }}
-         >
-           DIJUAL: Tanah 747m² + Bangunan<br className="hidden sm:block" /> Bekas Hotel 12 Kamar
-         </h1>
+        {/* Headline — filter mindset */}
+        <h1
+          className="text-white font-bold leading-tight"
+          style={{
+            fontFamily: "Poppins, sans-serif",
+            fontSize: "clamp(24px, 5vw, 42px)",
+            lineHeight: 1.2,
+            textShadow: "0 2px 8px rgba(0,0,0,0.4)",
+          }}
+        >
+          Tanah Komersial Dalam Ringroad Jogja – Fokus ke Lokasi, Bukan Bangunan
+        </h1>
 
-        {/* Subheadline */}
-        <p className="text-gray-200 text-base" style={{ fontFamily: "Inter, sans-serif" }}>
-          📍 Dalam Ringroad • 3.7km dari Tugu Jogja • ROI 10-13%/Tahun
+        {/* Subheadline — tegas */}
+        <p className="text-gray-200 text-base max-w-md mx-auto" style={{ fontFamily: "Inter, sans-serif", lineHeight: 1.7 }}>
+          Properti ini cocok untuk <strong style={{ color: "#E0E0E0" }}>investor yang paham value tanah</strong> &amp; siap renovasi / bangun ulang.
+          Bukan untuk yang cari bangunan siap pakai.
         </p>
 
         {/* Price Display */}
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1 mt-2">
           <span
             className="text-gray-400 line-through text-base"
             style={{ fontFamily: "Inter, sans-serif" }}
@@ -68,13 +67,13 @@ export function HeroSection({ onScrollToForm }: HeroSectionProps) {
                 color: "#D4AF37",
               }}
             >
-              Rp 10.500.000.000
+              Rp 10,5 M
             </span>
             <span
               className="text-xs font-bold px-3 py-1 rounded"
               style={{ background: "#D4AF37", color: "#1A1A1A" }}
             >
-              HEMAT 19%
+              TURUN 2,5M
             </span>
           </div>
         </div>
@@ -83,7 +82,7 @@ export function HeroSection({ onScrollToForm }: HeroSectionProps) {
         <div className="flex flex-col w-full gap-3 mt-2">
           <button
             onClick={onScrollToForm}
-            className="w-full text-black font-semibold rounded-lg transition-transform active:scale-95"
+            className="w-full text-white font-semibold rounded-lg transition-transform active:scale-95"
             style={{
               background: "#D4AF37",
               height: "56px",
@@ -93,7 +92,7 @@ export function HeroSection({ onScrollToForm }: HeroSectionProps) {
               letterSpacing: "0.3px",
             }}
           >
-            📞 JADWALKAN SURVEY SEKARANG
+            Saya Siap Survey &amp; Diskusi Serius
           </button>
           <a
             href="https://wa.me/6281391278889"
@@ -117,9 +116,9 @@ export function HeroSection({ onScrollToForm }: HeroSectionProps) {
           style={{ background: "rgba(255,255,255,0.12)" }}
         >
           {[
-            { icon: "🔐", text: "SHM Clear" },
-            { icon: "📍", text: "Lokasi Prime" },
-            { icon: "💰", text: "ROI Tinggi" },
+            { icon: "📐", text: "747 m²" },
+            { icon: "📍", text: "Dalam Ringroad" },
+            { icon: "⏱️", text: "±10 mnt ke Tugu" },
           ].map((badge) => (
             <div key={badge.text} className="flex flex-col items-center gap-1">
               <span className="text-xl">{badge.icon}</span>

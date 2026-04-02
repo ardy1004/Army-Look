@@ -3,40 +3,29 @@ import { useState } from "react";
 interface FormData {
   name: string;
   whatsapp: string;
-  email: string;
-  survey_readiness: string;
-  survey_date: string;
-  payment_plan: string;
-  budget_range: string;
+  budget: string;
   purpose: string;
+  timeline: string;
 }
 
-const surveyReadinessOptions = [
-  { value: "this_week", label: "🔥 Minggu Ini (Saya Serius!)" },
-  { value: "two_weeks", label: "2 Minggu Ke Depan" },
-  { value: "next_month", label: "Bulan Depan" },
-  { value: "considering", label: "Masih Pertimbangan Awal" },
-];
-
-const paymentPlanOptions = [
-  { value: "hard_cash", label: "💵 Hard Cash (Tunai Langsung)" },
-  { value: "soft_cash", label: "📋 Soft Cash (Cicilan Developer)" },
-  { value: "kpr_bank", label: "🏦 KPR / Bank" },
-  { value: "consult", label: "🤔 Masih Konsultasi" },
-];
-
-const budgetRangeOptions = [
-  { value: "8_10b", label: "Rp 8 - 10 Miliar" },
-  { value: "10_12b", label: "Rp 10 - 12 Miliar" },
-  { value: "12b_plus", label: "Rp 12 Miliar+" },
-  { value: "flexible", label: "Fleksibel (Nego)" },
+const budgetOptions = [
+  { value: "Cash Keras", label: "Cash Keras" },
+  { value: "Cash Bertahap", label: "Cash Bertahap" },
+  { value: "KPR Bank", label: "KPR Bank" },
 ];
 
 const purposeOptions = [
-  { value: "investment", label: "📈 Investasi (Sewa/Kost)" },
-  { value: "business", label: "🏪 Usaha (Hotel/Cafe)" },
-  { value: "personal", label: "🏠 Hunian Pribadi" },
-  { value: "mixed", label: "🔄 Kombinasi" },
+  { value: "Investasi (redevelop)", label: "Investasi (redevelop)" },
+  { value: "Usaha sendiri", label: "Usaha sendiri" },
+  { value: "Lainnya", label: "Lainnya" },
+];
+
+const timelineOptions = [
+  { value: "minggu_ini", label: "Minggu Ini" },
+  { value: "2_minggu", label: "2 Minggu lagi" },
+  { value: "bulan_ini", label: "Bulan Ini" },
+  { value: "bulan_depan", label: "Bulan depan" },
+  { value: "belum_tau", label: "Belum Tau" },
 ];
 
 const fieldStyle: React.CSSProperties = {
@@ -79,77 +68,112 @@ export function LeadForm() {
   const [form, setForm] = useState<FormData>({
     name: "",
     whatsapp: "",
-    email: "",
-    survey_readiness: "",
-    survey_date: "",
-    payment_plan: "",
-    budget_range: "",
+    budget: "",
     purpose: "",
+    timeline: "",
   });
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [focus, setFocus] = useState<FocusState>({});
   const [submitted, setSubmitted] = useState(false);
-
-  const showDateField =
-    form.survey_readiness === "this_week" || form.survey_readiness === "two_weeks";
-
-  const today = new Date().toISOString().split("T")[0];
-  const maxDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+  const [rejected, setRejected] = useState(false);
 
   function validate(): boolean {
-    const errs: Partial<FormData> = {};
+    const errs: Partial<Record<keyof FormData, string>> = {};
     if (!form.name || form.name.trim().length < 2) errs.name = "Nama minimal 2 karakter";
     if (!form.whatsapp || !/^08\d{8,11}$/.test(form.whatsapp.replace(/[\s-]/g, "")))
       errs.whatsapp = "Masukkan nomor WhatsApp yang valid (08xxx)";
-    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-      errs.email = "Format email tidak valid";
-    if (!form.survey_readiness) errs.survey_readiness = "Pilih rencana survey";
-    if (!form.payment_plan) errs.payment_plan = "Pilih rencana pembiayaan";
-    // budget_range disembunyikan, tidak divalidasi
+    if (!form.budget) errs.budget = "Pilih range budget";
     if (!form.purpose) errs.purpose = "Pilih tujuan pembelian";
+    if (!form.timeline) errs.timeline = "Pilih rencana transaksi";
     setErrors(errs);
     return Object.keys(errs).length === 0;
   }
 
-  function getSurveyLabel(val: string) {
-    return surveyReadinessOptions.find((o) => o.value === val)?.label ?? val;
-  }
-  function getPaymentLabel(val: string) {
-    return paymentPlanOptions.find((o) => o.value === val)?.label ?? val;
-  }
   function getBudgetLabel(val: string) {
-    return budgetRangeOptions.find((o) => o.value === val)?.label ?? val;
+    return budgetOptions.find((o) => o.value === val)?.label ?? val;
   }
   function getPurposeLabel(val: string) {
     return purposeOptions.find((o) => o.value === val)?.label ?? val;
   }
+  function getTimelineLabel(val: string) {
+    return timelineOptions.find((o) => o.value === val)?.label ?? val;
+  }
 
-   function handleSubmit(e: React.FormEvent) {
-     e.preventDefault();
-     if (!validate()) return;
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setRejected(false);
+    if (!validate()) return;
 
-     // Format WhatsApp number for link (remove leading 0 and add country code 62)
-     const whatsappClean = form.whatsapp.replace(/[\s-]/g, '');
-     const whatsappFormatted = whatsappClean.startsWith('0') 
-       ? '62' + whatsappClean.substring(1) 
-       : whatsappClean;
+    // ===== QUALIFICATION FILTER =====
+    // Reject if timeline = Belum Tau
+    if (form.timeline === "belum_tau") {
+      setRejected(true);
+      return;
+    }
 
-     const msg = encodeURIComponent(
-       `Halo, saya tertarik dengan Properti Ex Hotel Jogja.\n\n📋 DATA SAYA:\n• Nama: ${form.name}\n• WhatsApp: ${form.whatsapp}\n• Email: ${form.email || "-"}\n• Rencana Survey: ${getSurveyLabel(form.survey_readiness)}\n• Tanggal Survey: ${form.survey_date || "-"}\n• Pembiayaan: ${getPaymentLabel(form.payment_plan)}\n• Budget: ${getBudgetLabel(form.budget_range) || "-"}\n• Tujuan: ${getPurposeLabel(form.purpose)}\n\nMohon info lebih lanjut. Terima kasih!`
-     );
+    // ===== QUALIFIED → REDIRECT =====
+    const whatsappClean = form.whatsapp.replace(/[\s-]/g, "");
+    const whatsappFormatted = whatsappClean.startsWith("0")
+      ? "62" + whatsappClean.substring(1)
+      : whatsappClean;
 
-     setSubmitted(true);
-     setTimeout(() => {
-       window.open(`https://wa.me/${whatsappFormatted}?text=${msg}`, "_blank");
-       setSubmitted(false);
-     }, 1500);
-   }
+    const msg = encodeURIComponent(
+      `Halo, saya sudah baca detail properti Jalan Godean Km.5 (dalam Ringroad Jogja).\n\n📋 *DATA SAYA:*\n• Nama: ${form.name}\n• WhatsApp: ${form.whatsapp}\n• Budget: ${getBudgetLabel(form.budget)}\n• Tujuan: ${getPurposeLabel(form.purpose)}\n• Rencana Survey: ${getTimelineLabel(form.timeline)}\n\nSaya siap diskusi serius dan survey lokasi. Terima kasih!`
+    );
+
+    setSubmitted(true);
+    setTimeout(() => {
+      window.open(`https://wa.me/${whatsappFormatted}?text=${msg}`, "_blank");
+      setSubmitted(false);
+    }, 1500);
+  }
 
   function getFocusStyle(field: string): React.CSSProperties {
     return {
       ...fieldStyle,
       borderColor: focus[field] ? "#D4AF37" : errors[field as keyof FormData] ? "#C41E3A" : "#E0E0E0",
     };
+  }
+
+  function RadioGroup({
+    options,
+    name,
+    value,
+    onChange,
+  }: {
+    options: { value: string; label: string }[];
+    name: string;
+    value: string;
+    onChange: (val: string) => void;
+  }) {
+    return (
+      <div className="flex flex-col gap-2">
+        {options.map((o) => (
+          <label
+            key={o.value}
+            className="flex items-center gap-3 px-4 rounded-lg cursor-pointer"
+            style={{
+              height: "48px",
+              border: `1.5px solid ${value === o.value ? "#D4AF37" : "#E0E0E0"}`,
+              background: value === o.value ? "rgba(212,175,55,0.08)" : "#fff",
+              fontFamily: "Inter, sans-serif",
+              fontSize: "14px",
+              color: "#1A1A1A",
+            }}
+          >
+            <input
+              type="radio"
+              name={name}
+              value={o.value}
+              checked={value === o.value}
+              onChange={() => onChange(o.value)}
+              style={{ accentColor: "#D4AF37" }}
+            />
+            {o.label}
+          </label>
+        ))}
+      </div>
+    );
   }
 
   return (
@@ -163,28 +187,47 @@ export function LeadForm() {
           className="text-center font-bold mb-2"
           style={{ fontFamily: "Poppins, sans-serif", fontSize: "22px", color: "#1A1A1A" }}
         >
-          📋 Dapatkan Info Lengkap & Jadwalkan Survey
+          Cek Kelayakan Anda Sebelum Survey Lokasi
         </h2>
         <p className="text-center text-sm mb-6" style={{ color: "#9E9E9E", fontFamily: "Inter, sans-serif" }}>
-          Isi form di bawah, kami akan hubungi via WhatsApp dalam 15 menit
+          Hanya calon pembeli yang memenuhi kriteria yang akan kami respon
         </p>
 
+        {/* Rejection Message */}
+        {rejected && (
+          <div
+            className="text-center py-4 px-5 rounded-xl mb-5"
+            style={{ background: "#FEF2F2", border: "1px solid #FECACA" }}
+          >
+            <p className="font-bold mb-1" style={{ color: "#B91C1C", fontFamily: "Poppins, sans-serif", fontSize: "16px" }}>
+              Properti Ini Tidak Sesuai Dengan Kebutuhan Anda
+            </p>
+            <p style={{ color: "#4A4A4A", fontSize: "14px", lineHeight: 1.5 }}>
+              Berdasarkan jawaban Anda, listing ini kurang cocok. Kami akan hubungi jika ada properti lain yang lebih sesuai.
+            </p>
+          </div>
+        )}
+
+        {/* Success Message */}
         {submitted && (
           <div
-            className="text-center py-4 px-5 rounded-xl mb-5 font-semibold"
-            style={{ background: "#f0fdf4", color: "#2D5016", fontFamily: "Inter, sans-serif" }}
+            className="text-center py-4 px-5 rounded-xl mb-5"
+            style={{ background: "#f0fdf4", border: "1px solid #BBF7D0" }}
           >
-            ✅ Data terkirim! Anda akan diarahkan ke WhatsApp...
+            <p className="font-bold mb-1" style={{ color: "#16A34A", fontFamily: "Poppins, sans-serif", fontSize: "16px" }}>
+              Anda Memenuhi Kriteria ✓
+            </p>
+            <p style={{ color: "#4A4A4A", fontSize: "14px" }}>Mengarahkan ke WhatsApp...</p>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
           {/* Nama */}
           <div>
-            <FieldLabel required>Nama Lengkap</FieldLabel>
+            <FieldLabel required>Nama</FieldLabel>
             <input
               type="text"
-              placeholder="Masukkan nama Anda"
+              placeholder="Masukkan nama lengkap"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               onFocus={() => setFocus({ ...focus, name: true })}
@@ -199,128 +242,54 @@ export function LeadForm() {
             )}
           </div>
 
-           {/* WhatsApp */}
-           <div>
-             <FieldLabel required>Nomor WhatsApp</FieldLabel>
-             <input
-               type="tel"
-               placeholder="08xx-xxxx-xxxx"
-               value={form.whatsapp}
-               onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
-               onFocus={() => setFocus({ ...focus, whatsapp: true })}
-               onBlur={() => setFocus({ ...focus, whatsapp: false })}
-               style={getFocusStyle("whatsapp")}
-               aria-required="true"
-             />
-             {errors.whatsapp && (
-               <span className="text-xs mt-1 block" style={{ color: "#C41E3A" }}>
-                 {errors.whatsapp}
-               </span>
-             )}
-           </div>
-
-          {/* Email */}
+          {/* WhatsApp */}
           <div>
-            <FieldLabel>Email (Opsional)</FieldLabel>
+            <FieldLabel required>Nomor WhatsApp</FieldLabel>
             <input
-              type="email"
-              placeholder="email@anda.com"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              onFocus={() => setFocus({ ...focus, email: true })}
-              onBlur={() => setFocus({ ...focus, email: false })}
-              style={getFocusStyle("email")}
+              type="tel"
+              placeholder="08xxxxxxxxxx"
+              value={form.whatsapp}
+              onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
+              onFocus={() => setFocus({ ...focus, whatsapp: true })}
+              onBlur={() => setFocus({ ...focus, whatsapp: false })}
+              style={getFocusStyle("whatsapp")}
+              aria-required="true"
             />
-            {errors.email && (
+            {errors.whatsapp && (
               <span className="text-xs mt-1 block" style={{ color: "#C41E3A" }}>
-                {errors.email}
+                {errors.whatsapp}
               </span>
             )}
           </div>
 
-          {/* Survey Readiness */}
+          {/* Rencana Pembayaran */}
           <div>
-            <FieldLabel required>Kapan Anda Berencana Survey Lokasi?</FieldLabel>
+            <FieldLabel required>Rencana Pembayaran</FieldLabel>
             <select
-              value={form.survey_readiness}
-              onChange={(e) => setForm({ ...form, survey_readiness: e.target.value, survey_date: "" })}
-              onFocus={() => setFocus({ ...focus, survey_readiness: true })}
-              onBlur={() => setFocus({ ...focus, survey_readiness: false })}
-              style={{ ...getFocusStyle("survey_readiness"), cursor: "pointer" }}
+              value={form.budget}
+              onChange={(e) => setForm({ ...form, budget: e.target.value })}
+              onFocus={() => setFocus({ ...focus, budget: true })}
+              onBlur={() => setFocus({ ...focus, budget: false })}
+              style={{ ...getFocusStyle("budget"), cursor: "pointer" }}
               aria-required="true"
             >
-              <option value="">Pilih waktu survey...</option>
-              {surveyReadinessOptions.map((o) => (
+              <option value="">Pilih rencana pembayaran...</option>
+              {budgetOptions.map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.label}
                 </option>
               ))}
             </select>
-            {errors.survey_readiness && (
+            {errors.budget && (
               <span className="text-xs mt-1 block" style={{ color: "#C41E3A" }}>
-                {errors.survey_readiness}
+                {errors.budget}
               </span>
             )}
           </div>
 
-          {/* Survey Date (conditional) */}
-          {showDateField && (
-            <div>
-              <FieldLabel>Pilih Tanggal Survey</FieldLabel>
-              <input
-                type="date"
-                min={today}
-                max={maxDate}
-                value={form.survey_date}
-                onChange={(e) => setForm({ ...form, survey_date: e.target.value })}
-                onFocus={() => setFocus({ ...focus, survey_date: true })}
-                onBlur={() => setFocus({ ...focus, survey_date: false })}
-                style={getFocusStyle("survey_date")}
-              />
-            </div>
-          )}
-
-          {/* Payment Plan */}
+          {/* Tujuan Beli */}
           <div>
-            <FieldLabel required>Rencana Pembiayaan</FieldLabel>
-            <div className="flex flex-col gap-2">
-              {paymentPlanOptions.map((o) => (
-                <label
-                  key={o.value}
-                  className="flex items-center gap-3 px-4 rounded-lg cursor-pointer"
-                  style={{
-                    height: "48px",
-                    border: `1.5px solid ${form.payment_plan === o.value ? "#D4AF37" : "#E0E0E0"}`,
-                    background: form.payment_plan === o.value ? "rgba(212,175,55,0.08)" : "#fff",
-                    fontFamily: "Inter, sans-serif",
-                    fontSize: "14px",
-                    color: "#1A1A1A",
-                  }}
-                >
-                  <input
-                    type="radio"
-                    name="payment_plan"
-                    value={o.value}
-                    checked={form.payment_plan === o.value}
-                    onChange={() => setForm({ ...form, payment_plan: o.value })}
-                    style={{ accentColor: "#D4AF37" }}
-                  />
-                  {o.label}
-                </label>
-              ))}
-            </div>
-            {errors.payment_plan && (
-              <span className="text-xs mt-1 block" style={{ color: "#C41E3A" }}>
-                {errors.payment_plan}
-              </span>
-            )}
-          </div>
-
-          {/* Budget Range - disembunyikan */}
-
-          {/* Purpose */}
-          <div>
-            <FieldLabel required>Tujuan Pembelian</FieldLabel>
+            <FieldLabel required>Tujuan Beli</FieldLabel>
             <select
               value={form.purpose}
               onChange={(e) => setForm({ ...form, purpose: e.target.value })}
@@ -343,6 +312,25 @@ export function LeadForm() {
             )}
           </div>
 
+          {/* Timeline */}
+          <div>
+            <FieldLabel required>Kapan rencana Survey Lokasi?</FieldLabel>
+            <RadioGroup
+              options={timelineOptions}
+              name="timeline"
+              value={form.timeline}
+              onChange={(val) => {
+                setForm({ ...form, timeline: val });
+                setErrors({ ...errors, timeline: undefined });
+              }}
+            />
+            {errors.timeline && (
+              <span className="text-xs mt-1 block" style={{ color: "#C41E3A" }}>
+                {errors.timeline}
+              </span>
+            )}
+          </div>
+
           {/* Submit */}
           <button
             type="submit"
@@ -357,11 +345,11 @@ export function LeadForm() {
             }}
             disabled={submitted}
           >
-            📲 KIRIM KE WHATSAPP
+            Lanjut ke WhatsApp →
           </button>
 
           <p className="text-xs text-center" style={{ color: "#9E9E9E", fontFamily: "Inter, sans-serif" }}>
-            🔒 Data Anda aman & tidak akan disalahgunakan
+            🔒 Data Anda aman &amp; hanya untuk keperluan komunikasi properti
           </p>
         </form>
       </div>

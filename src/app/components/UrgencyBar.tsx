@@ -14,7 +14,7 @@ export function UrgencyBar() {
           50% { opacity: 0.82; }
         }
       `}</style>
-      ⚠️ Property OFF Sejak 2021 — Owner <strong>SERIUS JUAL</strong> | 3 Buyer Sudah Survey Minggu Ini
+      ⚠️ Properti Dalam Ringroad — Owner <strong>SERIUS JUAL</strong>
     </div>
   );
 }
