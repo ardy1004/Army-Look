@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meta Pixel Test</title>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1935487383761492');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1935487383761492&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+<body>
+  <h1>Meta Pixel Test Page</h1>
+  <p>Open browser console (F12) and check for network requests to facebook.com</p>
+  <p>Install Meta Pixel Helper extension and check if it detects the pixel</p>
+  <script>
+    // Test if pixel is loaded
+    setTimeout(function() {
+      console.log('fbq object:', window.fbq);
+      console.log('Pixel loaded:', typeof window.fbq !== 'undefined');
+    }, 2000);
+  </script>
+</body>
+</html>
